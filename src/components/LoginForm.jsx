@@ -9,7 +9,10 @@ const LoginForm = () => {
   const handleFormValidation = (e) => {
     e.preventDefault();
 
-    if (email === "Tanaypanchal7@gmail.com" && password === "Tanaypanchal7") {
+    if (
+      email === "mindscape2025@gmail.com" &&
+      password === "Adminuser@mindscape"
+    ) {
       localStorage.setItem("isLoggedIn", "true"); // 👈 Set login flag
       alert("Login Successful!");
       navigate("/AdminDashboard");
