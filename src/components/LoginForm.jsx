@@ -9,15 +9,19 @@ const LoginForm = () => {
   const handleFormValidation = (e) => {
     e.preventDefault();
 
-    if (
-      email === "mindscape2025@gmail.com" &&
-      password === "Adminuser@mindscape"
-    ) {
-      localStorage.setItem("isLoggedIn", "true"); // 👈 Set login flag
-      alert("Login Successful!");
-      navigate("/AdminDashboard");
+    if (email === "" || password === "") {
+      alert("Enter Email and password");
     } else {
-      alert("Invalid email or password!");
+      if (
+        email === "mindscape2025@gmail.com" &&
+        password === "Adminuser@mindscape"
+      ) {
+        localStorage.setItem("isLoggedIn", "true"); // 👈 Set login flag
+        alert("Login Successful!");
+        navigate("/AdminDashboard");
+      } else {
+        alert("Invalid email or password!");
+      }
     }
   };
 
