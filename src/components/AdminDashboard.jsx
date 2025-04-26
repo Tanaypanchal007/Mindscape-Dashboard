@@ -19,6 +19,31 @@ const AdminDashboard = () => {
     fetchUserData();
   }, []);
 
+  // Delete User Function start Here...........
+  const handleDelete = async (userId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/${userId}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        alert("User deleted successfully");
+        setusers(users.filter((user) => user._id !== userId));
+      } else {
+        alert(result.message || "Failed to delete user");
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("Something went wrong while deleting the user.");
+    }
+  };
+
   return (
     <section className="flex h-screen overflow-hidden">
       {/* Left side container */}
@@ -77,7 +102,7 @@ const AdminDashboard = () => {
                     <td className="h-16 px-6 text-center">{index + 1}</td>
                     <td className="h-16 px-6 flex items-center justify-center">
                       <img
-                        src={user.profile}
+                        src={user.image}
                         alt="profile"
                         className="w-14 h-14 object-cover rounded"
                       />
@@ -87,7 +112,10 @@ const AdminDashboard = () => {
                     <td className="h-16 px-6 text-center">{user.gender}</td>
                     <td className="h-16 px-6 text-center">{user.birthDate}</td>
                     <td className="h-16 px-6 text-center">
-                      <button className="text-3xl text-red-600">
+                      <button
+                        className="text-3xl text-red-600"
+                        onClick={() => handleDelete(user._id)}
+                      >
                         <MdDeleteForever />
                       </button>
                     </td>
